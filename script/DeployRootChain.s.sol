@@ -6,8 +6,8 @@ import "../contracts/RaylsRootChain.sol";
 
 /**
  * @title DeployRootChain
- * @notice Deployment script for RaylsRootChain on Ethereum Holesky
- * @dev Run: forge script script/DeployRootChain.s.sol:DeployRootChain --rpc-url holesky --broadcast --private-key $PRIVATE_KEY
+ * @notice Deployment script for RaylsRootChain on Ethereum Sepolia
+ * @dev Run: forge script script/DeployRootChain.s.sol:DeployRootChain --rpc-url sepolia --broadcast --private-key $PRIVATE_KEY
  */
 contract DeployRootChain is Script {
     function run() external {

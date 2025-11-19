@@ -5,7 +5,7 @@ import { privateKeyToAccount } from 'viem/accounts';
 const PRIVATE_KEY = process.env.PRIVATE_KEY as `0x${string}`;
 const VALIDATOR_ADDRESS = process.env.VALIDATOR_ADDRESS as `0x${string}`;
 const RAYLS_EMITTER_ADDRESS = process.env.RAYLS_EMITTER_ADDRESS as `0x${string}`;
-const HOLESKY_ROOTCHAIN_ADDRESS = process.env.HOLESKY_ROOTCHAIN_ADDRESS as `0x${string}`;
+const SEPOLIA_ROOTCHAIN_ADDRESS = process.env.SEPOLIA_ROOTCHAIN_ADDRESS as `0x${string}`;
 const CHECKPOINT_INTERVAL_BLOCKS = parseInt(process.env.CHECKPOINT_INTERVAL_BLOCKS || '10');
 const CHECKPOINT_INTERVAL_MS = parseInt(process.env.CHECKPOINT_INTERVAL_MS || '10000');
 
@@ -29,36 +29,36 @@ const raylsClient = createPublicClient({
   transport: http('https://devnet-rpc.rayls.com'),
 });
 
-const holeskyClient = createPublicClient({
+const sepoliaClient = createPublicClient({
   chain: {
-    id: 17000,
-    name: 'Holesky',
+    id: 11155111,
+    name: 'Sepolia',
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
     rpcUrls: {
-      default: { http: ['https://rpc.ankr.com/eth_holesky'] },
+      default: { http: ['https://rpc.ankr.com/eth_sepolia'] },
     },
     blockExplorers: {
-      default: { name: 'Etherscan', url: 'https://holesky.etherscan.io' },
+      default: { name: 'Etherscan', url: 'https://sepolia.etherscan.io' },
     },
     testnet: true,
   },
-  transport: http('https://rpc.ankr.com/eth_holesky'),
+  transport: http('https://rpc.ankr.com/eth_sepolia'),
 });
 
 // Create wallet client for signing and submitting
 const account = privateKeyToAccount(PRIVATE_KEY);
-const holeskyWalletClient = createWalletClient({
+const sepoliaWalletClient = createWalletClient({
   account,
   chain: {
-    id: 17000,
-    name: 'Holesky',
+    id: 11155111,
+    name: 'Sepolia',
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
     rpcUrls: {
-      default: { http: ['https://rpc.ankr.com/eth_holesky'] },
+      default: { http: ['https://rpc.ankr.com/eth_sepolia'] },
     },
     testnet: true,
   },
-  transport: http('https://rpc.ankr.com/eth_holesky'),
+  transport: http('https://rpc.ankr.com/eth_sepolia'),
 });
 
 // Contract ABIs (minimal)
@@ -96,7 +96,7 @@ async function signCheckpoint(
   // Create message hash matching Solidity implementation
   const messageHash = await account.signMessage({
     message: {
-      raw: await holeskyWalletClient.request({
+      raw: await sepoliaWalletClient.request({
         method: 'eth_call',
         params: [
           {
@@ -131,15 +131,15 @@ async function submitCheckpoint(
     });
 
     // Submit to contract
-    const hash = await holeskyWalletClient.writeContract({
-      address: HOLESKY_ROOTCHAIN_ADDRESS,
+    const hash = await sepoliaWalletClient.writeContract({
+      address: SEPOLIA_ROOTCHAIN_ADDRESS,
       abi: rootChainAbi,
       functionName: 'submitCheckpoint',
       args: [startBlock, endBlock, receiptsRoot, signature],
     });
 
     console.log(`✅ Checkpoint submitted! Tx: ${hash}`);
-    console.log(`   Explorer: https://holesky.etherscan.io/tx/${hash}`);
+    console.log(`   Explorer: https://sepolia.etherscan.io/tx/${hash}`);
 
     state.checkpointsSubmitted++;
     state.lastProcessedBlock = endBlock;
@@ -184,11 +184,11 @@ async function runRelayer() {
   console.log('🚀 Rayls Anchor Relayer Starting...\n');
   console.log('='.repeat(50));
   console.log(`Rayls RPC: https://devnet-rpc.rayls.com`);
-  console.log(`Holesky RPC: https://rpc.ankr.com/eth_holesky`);
+  console.log(`Sepolia RPC: https://rpc.ankr.com/eth_sepolia`);
   console.log(`Validator: ${VALIDATOR_ADDRESS}`);
   console.log(`Relayer: ${account.address}`);
   console.log(`Emitter: ${RAYLS_EMITTER_ADDRESS}`);
-  console.log(`RootChain: ${HOLESKY_ROOTCHAIN_ADDRESS}`);
+  console.log(`RootChain: ${SEPOLIA_ROOTCHAIN_ADDRESS}`);
   console.log(`Checkpoint Interval: ${CHECKPOINT_INTERVAL_BLOCKS} blocks (~${CHECKPOINT_INTERVAL_MS}ms)`);
   console.log('='.repeat(50));
 

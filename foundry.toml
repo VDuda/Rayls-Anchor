@@ -14,4 +14,4 @@ bracket_spacing = true
 
 [rpc_endpoints]
 rayls = "https://devnet-rpc.rayls.com"
-holesky = "https://holesky.drpc.org"
+sepolia = "https://ethereum-sepolia-rpc.publicnode.com"

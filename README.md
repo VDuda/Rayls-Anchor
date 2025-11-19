@@ -4,7 +4,7 @@
 ![Foundry](https://img.shields.io/badge/Built%20with-Foundry-orange?style=flat)
 ![License](https://img.shields.io/badge/License-MIT-blue?style=flat)
 ![Rayls](https://img.shields.io/badge/Rayls-Public%20Chain-00D4FF?style=flat)
-![Ethereum](https://img.shields.io/badge/Ethereum-Holesky-627EEA?style=flat&logo=ethereum)
+![Ethereum](https://img.shields.io/badge/Ethereum-Sepolia-627EEA?style=flat&logo=ethereum)
 
 **The Polygon-inspired, trust-minimized checkpoint bridge that brings Rayls Public Chain state to Ethereum in <60 seconds.**
 
@@ -21,7 +21,7 @@ Rayls Anchor is a Polygon PoS-style checkpoint system tailored for Rayls' sub-se
 ## 🏗️ Architecture
 
 ```
-Rayls Public Devnet ──(events)──► Relayer ──(signed checkpoint)──► RaylsRootChain (Holesky)
+Rayls Public Devnet ──(events)──► Relayer ──(signed checkpoint)──► RaylsRootChain (Sepolia)
                                                     ▲
                                                     └── Merkle proof verification
                                                         for any Rayls event
@@ -38,7 +38,7 @@ Rayls Public Devnet ──(events)──► Relayer ──(signed checkpoint)─
    - Generates unique message IDs
    - Deployed on Chain ID: 123123
 
-2. **RaylsRootChain.sol** (Ethereum Holesky)
+2. **RaylsRootChain.sol** (Ethereum Sepolia)
    - Verifies PoA validator signatures
    - Stores checkpoints with receipts roots
    - Enables Merkle proof verification
@@ -87,8 +87,8 @@ VALIDATOR_PRIVATE_KEY=your_validator_private_key
 # Deploy emitter to Rayls Devnet
 forge script script/DeployEmitter.s.sol --rpc-url rayls --broadcast
 
-# Deploy root chain to Ethereum Holesky
-forge script script/DeployRootChain.s.sol --rpc-url holesky --broadcast
+# Deploy root chain to Ethereum Sepolia
+forge script script/DeployRootChain.s.sol --rpc-url sepolia --broadcast
 ```
 
 ### Run Relayer
@@ -144,7 +144,7 @@ Zero-knowledge proof system for trustless light client verification. Potential u
 
 - **Rayls Devnet RPC**: https://devnet-rpc.rayls.com
 - **Rayls Explorer**: https://devnet-explorer.rayls.com
-- **Holesky RPC**: https://rpc.ankr.com/eth_holesky
+- **Sepolia RPC**: https://ethereum-sepolia-rpc.publicnode.com
 - **Rayls Docs**: https://docs.rayls.com
 
 ## 🛣️ Roadmap

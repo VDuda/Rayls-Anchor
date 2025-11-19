@@ -4,7 +4,7 @@ pragma solidity ^0.8.26;
 /**
  * @title RaylsRootChain
  * @notice Polygon-inspired checkpoint verification system for Rayls Public Chain
- * @dev Deployed on Ethereum Holesky (testnet) / Mainnet
+ * @dev Deployed on Ethereum Sepolia (testnet) / Mainnet
  * Verifies signed checkpoints from Rayls validators and enables Merkle proof verification
  */
 contract RaylsRootChain {

@@ -6,8 +6,8 @@ import "../contracts/RaylsRootChain.sol";
 
 contract RaylsRootChainTest is Test {
     RaylsRootChain public rootChain;
-    address public validator = address(0x1);
-    uint256 public validatorKey = 0x1;
+    uint256 public validatorKey = 0x1234;
+    address public validator = vm.addr(validatorKey);
     address public user = address(0x2);
 
     event NewCheckpoint(

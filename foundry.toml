@@ -14,4 +14,4 @@ bracket_spacing = true
 
 [rpc_endpoints]
 rayls = "https://devnet-rpc.rayls.com"
-holesky = "https://rpc.ankr.com/eth_holesky"
+holesky = "https://holesky.drpc.org"

@@ -187,14 +187,14 @@ Open http://localhost:3000 to see the dashboard.
 # Verify on Rayls (if verification API available)
 forge verify-contract \
   $RAYLS_EMITTER_ADDRESS \
-  src/RaylsCheckpointEmitter.sol:RaylsCheckpointEmitter \
+  contracts/RaylsCheckpointEmitter.sol:RaylsCheckpointEmitter \
   --chain-id 123123 \
   --rpc-url https://devnet-rpc.rayls.com
 
 # Verify on Holesky
 forge verify-contract \
   $HOLESKY_ROOTCHAIN_ADDRESS \
-  src/RaylsRootChain.sol:RaylsRootChain \
+  contracts/RaylsRootChain.sol:RaylsRootChain \
   --chain-id 17000 \
   --rpc-url https://rpc.ankr.com/eth_holesky \
   --etherscan-api-key $ETHERSCAN_API_KEY \

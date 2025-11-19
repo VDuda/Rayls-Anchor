@@ -4,7 +4,7 @@
 
 ```
 Rayls-Anchor/
-├── src/                          # Smart contracts (Solidity)
+├── contracts/                    # Smart contracts (Solidity)
 │   ├── RaylsCheckpointEmitter.sol   # Message emitter on Rayls
 │   └── RaylsRootChain.sol          # Checkpoint verifier on Ethereum
 │
@@ -48,7 +48,7 @@ Rayls-Anchor/
 
 ## 🎯 Core Components
 
-### 1. Smart Contracts (`src/`)
+### 1. Smart Contracts (`contracts/`)
 
 #### `RaylsCheckpointEmitter.sol`
 - **Network**: Rayls Devnet (Chain ID: 123123)
@@ -138,7 +138,7 @@ forge script script/DeployRootChain.s.sol:DeployRootChain \
 ### `foundry.toml`
 ```toml
 [profile.default]
-src = "src"
+src = "contracts"
 out = "out"
 libs = ["lib"]
 solc_version = "0.8.26"

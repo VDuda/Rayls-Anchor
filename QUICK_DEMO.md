@@ -26,7 +26,9 @@ cast send 0xe6AF1212d688601142f5E8b70da4e320d7838362 \
 
 ### 2️⃣ Start Relayer
 ```bash
-cd relayer && bun run dev
+cd relayer
+# Make sure .env exists (should be already created)
+bun run dev
 ```
 **Copy Sepolia TX hash** from logs when it submits
 

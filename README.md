@@ -27,6 +27,10 @@ Rayls Public Devnet ──(events)──► Relayer ──(signed checkpoint)─
                                                         for any Rayls event
 ```
 
+**Security Model**: Currently uses PoA validator signatures (matching Rayls Devnet). Designed to upgrade to multi-sig consensus and eventually ZK light client verification.
+
+**Note**: This implementation focuses on the checkpoint bridge mechanism. For production deployments, consider integrating with Rayls' native interoperability features (e.g., Sideling for cross-chain messaging) or ZK proof systems (e.g., Succinct SP1) for enhanced trustlessness.
+
 ### Core Components
 
 1. **RaylsCheckpointEmitter.sol** (Rayls Devnet)
@@ -117,7 +121,20 @@ forge test -vvv
 forge test --match-test testSubmitCheckpoint
 ```
 
-## 📚 Documentation
+## � Complementary Technologies
+
+### Rayls Sideling
+Rayls' native cross-chain messaging protocol. While Rayls Anchor provides checkpoint-based state verification, Sideling can be used for:
+- Direct message passing between chains
+- Native interoperability with private Rayls nodes
+- Enhanced cross-chain contract calls
+
+**Integration Path**: Future versions could combine Anchor's trust-minimized checkpoints with Sideling's messaging layer for a complete bridging solution.
+
+### Succinct SP1 (ZK Proofs)
+Zero-knowledge proof system for trustless light client verification. Potential upgrade to replace ECDSA signature verification with ZK proofs of validator consensus.
+
+## �📚 Documentation
 
 - [Deployment Guide](./DEPLOY.md)
 - [Quick Start Guide](./QUICKSTART.md)
@@ -141,9 +158,10 @@ forge test --match-test testSubmitCheckpoint
 ### Future (Mainnet)
 - [ ] Multi-signature validator set (2/3+ consensus)
 - [ ] ZK light client with Succinct SP1
+- [ ] Integration with Rayls Sideling for native cross-chain messaging
 - [ ] Fraud proof system
-- [ ] Integration with Aave/Uniswap/Curve
-- [ ] RWA tokenized asset bridging
+- [ ] Integration with Aave/Uniswap/Curve for DeFi liquidity
+- [ ] RWA tokenized asset bridging from private nodes
 
 ## 🏆 Hackathon Submission
 

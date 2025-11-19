@@ -1,4 +1,4 @@
-import { createPublicClient, createWalletClient, http, defineChain, parseAbi } from 'viem';
+import { createPublicClient, createWalletClient, http, defineChain, parseAbi, keccak256, encodeAbiParameters } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 
 // Environment variables
@@ -35,14 +35,14 @@ const sepoliaClient = createPublicClient({
     name: 'Sepolia',
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
     rpcUrls: {
-      default: { http: ['https://rpc.ankr.com/eth_sepolia'] },
+      default: { http: ['https://ethereum-sepolia-rpc.publicnode.com'] },
     },
     blockExplorers: {
       default: { name: 'Etherscan', url: 'https://sepolia.etherscan.io' },
     },
     testnet: true,
   },
-  transport: http('https://rpc.ankr.com/eth_sepolia'),
+  transport: http('https://ethereum-sepolia-rpc.publicnode.com'),
 });
 
 // Create wallet client for signing and submitting
@@ -54,11 +54,11 @@ const sepoliaWalletClient = createWalletClient({
     name: 'Sepolia',
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
     rpcUrls: {
-      default: { http: ['https://rpc.ankr.com/eth_sepolia'] },
+      default: { http: ['https://ethereum-sepolia-rpc.publicnode.com'] },
     },
     testnet: true,
   },
-  transport: http('https://rpc.ankr.com/eth_sepolia'),
+  transport: http('https://ethereum-sepolia-rpc.publicnode.com'),
 });
 
 // Contract ABIs (minimal)
@@ -85,36 +85,7 @@ const state: RelayerState = {
 };
 
 /**
- * Sign checkpoint data with validator private key
- */
-async function signCheckpoint(
-  startBlock: bigint,
-  endBlock: bigint,
-  receiptsRoot: `0x${string}`,
-  chainId: number
-): Promise<`0x${string}`> {
-  // Create message hash matching Solidity implementation
-  const messageHash = await account.signMessage({
-    message: {
-      raw: await sepoliaWalletClient.request({
-        method: 'eth_call',
-        params: [
-          {
-            data: `0x${Buffer.from(
-              JSON.stringify([startBlock, endBlock, receiptsRoot, chainId])
-            ).toString('hex')}`,
-          },
-          'latest',
-        ],
-      }),
-    } as any,
-  });
-
-  return messageHash;
-}
-
-/**
- * Submit checkpoint to Holesky RootChain
+ * Submit checkpoint to Sepolia RootChain
  */
 async function submitCheckpoint(
   startBlock: bigint,
@@ -125,9 +96,26 @@ async function submitCheckpoint(
     console.log(`\n🔄 Submitting checkpoint [${startBlock} -> ${endBlock}]...`);
     console.log(`   Receipts Root: ${receiptsRoot}`);
 
-    // Sign the checkpoint
+    // Get Sepolia chain ID
+    const chainId = await sepoliaClient.getChainId();
+
+    // Create the message hash matching the contract's expectation
+    // Contract does: keccak256(abi.encode(startBlock, endBlock, receiptsRoot, block.chainid))
+    const messageHash = keccak256(
+      encodeAbiParameters(
+        [
+          { type: 'uint256' },
+          { type: 'uint256' },
+          { type: 'bytes32' },
+          { type: 'uint256' },
+        ],
+        [startBlock, endBlock, receiptsRoot, BigInt(chainId)]
+      )
+    );
+
+    // Sign the message hash (viem automatically adds the "\x19Ethereum Signed Message:\n32" prefix)
     const signature = await account.signMessage({
-      message: { raw: receiptsRoot },
+      message: { raw: messageHash },
     });
 
     // Submit to contract
@@ -184,7 +172,7 @@ async function runRelayer() {
   console.log('🚀 Rayls Anchor Relayer Starting...\n');
   console.log('='.repeat(50));
   console.log(`Rayls RPC: https://devnet-rpc.rayls.com`);
-  console.log(`Sepolia RPC: https://rpc.ankr.com/eth_sepolia`);
+  console.log(`Sepolia RPC: https://ethereum-sepolia-rpc.publicnode.com`);
   console.log(`Validator: ${VALIDATOR_ADDRESS}`);
   console.log(`Relayer: ${account.address}`);
   console.log(`Emitter: ${RAYLS_EMITTER_ADDRESS}`);

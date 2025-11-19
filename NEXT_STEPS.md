@@ -32,8 +32,8 @@ Visit: https://devnet-dapp.rayls.com/sign-in
 - Import account with private key from `.env`
 - Claim tokens from faucet
 
-### 2. Ethereum Holesky (ETH)
-Visit: https://holesky-faucet.pk910.de/
+### 2. Ethereum Sepolia (ETH)
+Visit: https://sepolia-faucet.com/
 - Enter address: `0x0135537bcfA2635ad89F1a413C4E97E8194185cC`
 - Request 0.1 ETH
 
@@ -74,8 +74,8 @@ npm run dev
 ### Rayls Explorer
 https://devnet-explorer.rayls.com/address/YOUR_EMITTER_ADDRESS
 
-### Holesky Explorer
-https://holesky.etherscan.io/address/YOUR_ROOTCHAIN_ADDRESS
+### Sepolia Explorer
+https://sepolia.etherscan.io/address/YOUR_ROOTCHAIN_ADDRESS
 
 ## 🎥 Demo Flow
 

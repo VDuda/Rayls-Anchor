@@ -14,7 +14,7 @@
 
 ### Scene 1: Introduction (15 seconds)
 **Say**:
-> "Rayls Anchor is a Polygon-inspired checkpoint bridge that brings Rayls Public Chain state to Ethereum in under 60 seconds. This solves the trust-minimized verification problem highlighted in the hackathon wiki."
+> "Rayls Anchor is a Polygon-inspired checkpoint bridge that brings Rayls Public Chain state to Ethereum in under 60 seconds. This solves the Tradfi to Defi divide as part of this hackathon."
 
 **Show**: README.md with architecture diagram
 

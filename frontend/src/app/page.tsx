@@ -1,4 +1,5 @@
 import { Anchor, ArrowRight, Shield, Zap, CheckCircle } from 'lucide-react';
+import Link from 'next/link';
 
 export default function HomePage() {
   return (
@@ -43,9 +44,12 @@ export default function HomePage() {
           </p>
 
           <div className="flex gap-6 justify-center mb-16">
-            <button className="px-8 py-4 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-lg font-semibold transition flex items-center gap-2">
+            <Link
+              href="/dashboard"
+              className="px-8 py-4 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-lg font-semibold transition flex items-center gap-2"
+            >
               Launch Dashboard <ArrowRight className="w-5 h-5" />
-            </button>
+            </Link>
             <a
               href="https://github.com/VDuda/Rayls-Anchor"
               target="_blank"

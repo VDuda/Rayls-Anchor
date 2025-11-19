@@ -20,12 +20,12 @@ export default function HomePage() {
               Rayls Explorer
             </a>
             <a
-              href="https://holesky.etherscan.io"
+              href="https://sepolia.etherscan.io"
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 transition"
             >
-              Holesky Explorer
+              Sepolia Explorer
             </a>
           </div>
         </nav>
@@ -102,7 +102,7 @@ export default function HomePage() {
               <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-blue-600 flex items-center justify-center">
                 3
               </div>
-              <p className="font-semibold">Holesky</p>
+              <p className="font-semibold">Sepolia</p>
               <p className="text-sm text-slate-400">Verify Proofs</p>
             </div>
           </div>

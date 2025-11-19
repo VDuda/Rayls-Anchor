@@ -11,7 +11,7 @@
 
 ### 0️⃣ Start Frontend (Optional - Opens in Browser)
 ```bash
-cd frontend && npm install && npm run dev
+cd frontend && bun install && bun run dev
 ```
 Then open: http://localhost:3000
 

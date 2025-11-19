@@ -12,20 +12,20 @@ export default function HomePage() {
           </div>
           <div className="flex gap-4">
             <a
-              href="https://devnet-explorer.rayls.com"
+              href="https://devnet-explorer.rayls.com/address/0xe6AF1212d688601142f5E8b70da4e320d7838362"
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 transition"
             >
-              Rayls Explorer
+              Rayls Emitter
             </a>
             <a
-              href="https://sepolia.etherscan.io"
+              href="https://sepolia.etherscan.io/address/0xe6AF1212d688601142f5E8b70da4e320d7838362"
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 transition"
             >
-              Sepolia Explorer
+              Sepolia RootChain
             </a>
           </div>
         </nav>
@@ -47,7 +47,9 @@ export default function HomePage() {
               Launch Dashboard <ArrowRight className="w-5 h-5" />
             </button>
             <a
-              href="https://github.com"
+              href="https://github.com/VDuda/Rayls-Anchor"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-8 py-4 rounded-lg border-2 border-purple-600 hover:bg-purple-600/10 text-lg font-semibold transition"
             >
               View on GitHub
